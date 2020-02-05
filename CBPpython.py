@@ -902,7 +902,7 @@ import re, sys
 import fnmatch
 import os
 
-
+os.chdir("C:/Users/manav")
 
 ##Code to prepare CBP data
 geolist = ['co','st','us']
@@ -927,51 +927,51 @@ for year in range(1990,1992):
 
 ##Code to prepare industry and geo reference files
 for year in range(1990, 1992):
-    # os.chdir("Downloads/"+'efsy_cbp_raw_'+str(year)+'/ref')
-    data = []
-    data1 = []
-    data2 = []
+    os.chdir("C:/Users/manav/Downloads/"+'efsy_cbp_raw_'+str(year)+'/ref')
+    dat = []
+    dat1 = []
+    dat2 = []
 
     for file in os.listdir('.'):
         if fnmatch.fnmatchcase(file, '*sic*'):
             with open (file, 'rt') as myfile:  # Open file lorem.txt for reading text
                 for myline in myfile:                 # For each line, read it to a string
-                    data.append(str(myline[0:4]))
+                    dat.append(str(myline[0:4]))
 
-                df = pd.DataFrame(data, columns=['ind'])
+                df = pd.DataFrame(dat, columns=['ind'])
                 #df = df.drop(df.index[0])
                 df = df.replace('"','')
                 df = df.replace("  ","")
-                #df.to_csv("Downloads/"+'efsy_cbp_raw_'+str(year)+'/ref/ind_ref_'+str(year)+'.csv', sep='\t',index=False)
+                df.to_csv("C:/Users/manav/Downloads/"+'efsy_cbp_raw_'+str(year)+'/ref/ind_ref_'+str(year)+'.csv', sep='\t',index=False)
                 print(df)
 
         elif fnmatch.fnmatchcase(file, '*naics*'):
             with open (file, 'rt') as myfile:  # Open file lorem.txt for reading text
                 for myline in myfile:                 # For each line, read it to a string
-                    data.append(str(myline[0:6]))
+                    dat.append(str(myline[0:6]))
 
-                df = pd.DataFrame(data, columns=['ind'])
+                df = pd.DataFrame(dat, columns=['ind'])
                 df = df.replace('"','', regex=True)
                 df = df.replace(' ','', regex=True)
                 df = df[df.ind != 'NAICS']
-                #df.to_csv("Downloads/"+'efsy_cbp_raw_'+str(year)+'/ref/ind_ref_'+str(year)+'.csv', sep='\t',index=False)
+                df.to_csv("C:/Users/manav/Downloads/"+'efsy_cbp_raw_'+str(year)+'/ref/ind_ref_'+str(year)+'.csv', sep='\t',index=False)
                 print(df)
 
         elif fnmatch.fnmatchcase(file, '*geo*'):
             with open (file, 'rt') as myfile:  # Open file lorem.txt for reading text
                 for myline in myfile:                 # For each line, read it to a string
-                    data1.append(str(myline[1:3]))
-                    data2.append(str(myline[6:9]))
+                    dat1.append(str(myline[1:3]))
+                    dat2.append(str(myline[6:9]))
 
-                df1 = pd.DataFrame(data1, columns=['fipstate'])
-                df2 = pd.DataFrame(data2, columns=['fipstate'])
+                df1 = pd.DataFrame(dat1, columns=['fipstate'])
+                df2 = pd.DataFrame(dat2, columns=['fipstate'])
                 df = pd.concat([df1, df2], axis=1)
                 df = df.replace('"','', regex=True)
                 df = df.replace(' ','', regex=True)
                 df = df.replace(',','', regex=True)
                 df = df.drop(df.index[0])
                 print(df)
-                #df.to_csv("Downloads/"+'efsy_cbp_raw_'+str(year)+'/ref/geo_ref_'+str(year)+'.csv', sep='\t',index=False)
+                df.to_csv("C:/Users/manav/Downloads/"+'efsy_cbp_raw_'+str(year)+'/ref/geo_ref_'+str(year)+'.csv', sep='\t',index=False)
 
         
         
